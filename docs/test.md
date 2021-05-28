@@ -10,7 +10,7 @@ nav_order: 2
 def sum(a, b):
     return a+b
 ```
-aaa
+가나다라
 ```java
 class Test {
     public static void main(String[] args) {
