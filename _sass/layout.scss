@@ -16,6 +16,7 @@
     flex-direction: column;
     border-right: $border $border-color;
     align-items: flex-end;
+    background-image: url("../images/background.jpg");
   }
 
   @include mq(lg) {
