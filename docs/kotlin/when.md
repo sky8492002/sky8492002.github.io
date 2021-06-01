@@ -2,7 +2,6 @@
 layout: default
 title: when
 parent: Kotlin
-nav_order: 3
 ---
 
 ## when

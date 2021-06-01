@@ -2,7 +2,6 @@
 layout: default
 title: Code
 parent: Kotlin
-nav_order: 1
 ---
 
 # Code
