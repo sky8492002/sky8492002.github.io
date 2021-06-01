@@ -14,9 +14,9 @@
     width: $nav-width-md;
     height: 100%;
     flex-direction: column;
+    background-image: url("../images/background.jpg");
     border-right: $border $border-color;
     align-items: flex-end;
-    background-image: url("../images/background.jpg");
   }
 
   @include mq(lg) {
