@@ -7,7 +7,7 @@ nav_order: 3
 
 ## when
 
-#### 인자값에 따라 실행되는 코드가 결정된다.
+#### 인자값에 따라 실행되는 코드가 결정된다. 
 ```kotlin
     var goto = 1
     when (goto) {
