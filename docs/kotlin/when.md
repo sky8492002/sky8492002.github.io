@@ -1,6 +1,6 @@
 ---
 layout: default
-title: when
+title: When
 parent: Kotlin
 ---
 
