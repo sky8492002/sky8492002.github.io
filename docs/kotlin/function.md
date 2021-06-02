@@ -12,14 +12,14 @@ parent: Kotlin
 ##### 기본 틀: 주어질 파라미터의 타입, 함수 안에서 쓰일 이름과 반환할 타입이 명시된다.
 {: .no_toc }
 ```kotlin
-    fun function(param name: param type): return type{
+    fun function(param_name: param_type): return type{
         return returnValue
     }
 ```
 ##### 반환값이 없을 경우 반환할 타입은 명시되지 않는다.
 {: .no_toc }
 ```kotlin
-    fun function(param name: param type){
+    fun function(param_name: param_type){
     }
 ```
 ##### 파라미터를 받지 않는 경우 파라미터의 타입과 이름은 명시되지 않는다.
