@@ -8,6 +8,7 @@ parent: Kotlin
 {:toc .text-delta} 
 
 ## Class
+{: .no_toc }
 ##### 기본 구조: 클래스명을 설정한 클래스에 변수, 함수를 내장할 수 있다.
 {: .no_toc }
 ```kotlin
@@ -88,7 +89,7 @@ parent: Kotlin
             bookTitle = bookName
         }
         fun modifyTitle(): String{
-            bookTitle = "Title : ${bookTitle}"
+            bookTitle = "Title is ${bookTitle}"
             return bookTitle
         }
     }
@@ -100,5 +101,138 @@ parent: Kotlin
 ```
 ```
     result_property: dictionary
-    result_method: Title : dictionary
+    result_method: Title is dictionary
+```
+<br/>
+
+##### companion object 블록을 사용하면 Instance화 없이 Property와 Method를 호출할 수 있다.
+{: .no_toc }
+```kotlin
+    class Book{
+        companion object{
+            var bookTitle = "tales"
+            fun modifyTitle() : String{
+                bookTitle = "changed tales"
+                return bookTitle
+            }
+        }
+    }
+    var title_by_property = Book.bookTitle
+    var title_by_method = Book.modifyTitle()
+    Log.d("result_property", "${title_by_property}")
+    Log.d("result_method", "${title_by_method}")
+```
+```
+    result_property: tales
+    result_method: changed tales
+```
+
+##### <주의> 클래스 함수 내부에 있는 local 클래스는 companion object를 사용할 수 없다.
+{: .no_toc }
+```kotlin
+    class MainActivity : AppCompatActivity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+            class Book{
+                companion object{
+                }
+            }
+        }
+    }
+```
+```kotlin
+    class Book{
+        fun function{
+            class Book2 {
+                companion object {
+                }
+            }
+        }b 
+    }
+```
+```
+    Modifier 'companion' is not applicable inside 'local class'
+```
+##### 중첩 클래스(nested class)에는 사용 가능하다.
+{: .no_toc }
+```kotlin
+    class Book{
+        class Book2{
+            companion object{
+            }
+        }
+    }
+```
+<br/>
+
+### 데이터 클래스(data class)
+##### data class는 일반 class와 다르게 toString으로 주소 대신 값을 불러올 수 있다.
+{: .no_toc }
+```kotlin
+    class normalClass(var param1: String, var param2: Int)
+    var normal = normalClass("zero", 0)
+    Log.d("normalClass", "${normal.toString()}")
+
+    data class dataClass(var param1: String, var param2: Int)
+    var data1 = dataClass("one", 1)
+    var data2 = dataClass(param1 = "two", param2= 2)
+    Log.d("dataClass", "${data1.toString()}, ${data2.toString()}")
+```
+```
+    normalClass: com.example.project_1.MainActivity$onCreate$normalClass@b719b2e
+    dataClass: dataClass(param1=one, param2=1), dataClass(param1=two, param2=2)
+```
+
+<br/>
+### 클래스의 상속과 확장
+##### 자식 클래스는 부모 클래스의 Property와 Method를 사용할 수 있다.
+{: .no_toc }
+##### 상속할 부모 클래스는 open Class 형태로 사용해야 자식이 상속할 수 있다.
+{: .no_toc }
+```kotlin
+    open class parentClass{
+        var bookTitle = "";
+        fun modifyTitle(): String{
+            bookTitle = "Title is ${bookTitle}"
+            return bookTitle
+        }
+    }
+```
+##### 상속받을 자식 클래스는 자식 클래스: 부모 클래스 형태로 사용해야 자식이 상속할 수 있다.
+{: .no_toc }
+```kotlin
+    class ChildClass: ParentClass() {
+        //bookTitle = "childBook"  함수 밖에서 바로 사용할 수 없다.
+        fun work(){
+            bookTitle = "childBook"
+            modifyTitle()
+        }
+    }
+    var child = ChildClass()
+    child.work()
+    Log.d("childClass", "${child.bookTitle}")
+```
+```
+    childClass: Title is childBook
+```
+<br/>
+
+##### 자식 클래스의 parameter를 부모 클래스의 parameter로 전달할 수 있다.
+{: .no_toc }
+```kotlin
+    open class ParentClass(parentParam: String){
+        var returnParentParam = parentParam
+        fun returnParam(): String{
+            // return parentParam  파라미터를 바로 return 할 수 없다.
+            return returnParentParam
+        }
+    }
+    class ChildClass(childParam: String): ParentClass(childParam) {
+    }
+    var child = ChildClass("hi")
+    Log.d("param", "${child.returnParam()}")
+```
+```
+    param: hi
 ```
