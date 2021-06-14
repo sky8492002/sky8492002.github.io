@@ -7,68 +7,47 @@ parent: Kotlin
 1. TOC
 {:toc .text-delta} 
 
-## Function
+## ViewBinding
+##### findViewById를 쓰는 대신 XML의 view component에 접근하는 object를 반환받아 view에 접근하는 방식
+{: .no_toc }
+##### 1. Gradle Scripts / build gradle(Module)에 접근한다.
+{: .no_toc }
+![gradle](/assets/images/viewBinding/gradle.png)
 
-##### 기본 틀: 주어질 파라미터의 타입, 함수 안에서 쓰일 이름과 반환할 타입이 명시된다.
+##### 2. android 항목에 다음과 같이 작성한다. 
+{: .no_toc }
+![buildFeatures](/assets/images/viewBinding/buildFeatures.png)
+##### 3. 상단의 sync now를 눌러 적용한다.
+{: .no_toc }
+![sync](/assets/images/viewBinding/sync.png)
+##### 4. 적용할 Activity에서 layout xml에 대응하는 클래스의 instance를 생성한다.
+{: .no_toc }
+##### - activity_main.xml에 대응하는 클래스는 ActivityMainBinding으로 자동 설정된다.
+{: .no_toc }
+##### - lateinit 예약어는 binding이 onCreate가 호출된 후에 생성되게 한다. 
 {: .no_toc }
 ```kotlin
-    fun function(param_name: param_type): return type{
-        return returnValue
+    class MainActivity : AppCompatActivity() {
+        private lateinit var binding: ActivityMainBinding
+        override fun onCreate(savedInstanceState: Bundle?) {
+            ...
+        }
     }
 ```
-##### 반환값이 없을 경우 반환할 타입은 명시되지 않는다.
+##### 5. onCreate method 안에서 inflate method를 호출한다. 생성된 객체(binding).root로 view를 참조할 수 있다.
 {: .no_toc }
 ```kotlin
-    fun function(param_name: param_type){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view) // 기존 방법 : setContentView(R.layout.activity_main)
     }
 ```
-##### 파라미터를 받지 않는 경우 파라미터의 타입과 이름은 명시되지 않는다.
+##### 6. 생성된 객체인 binding에 도트 연산자(.)를 붙여 layout의 요소를 참조할 수 있다.
 {: .no_toc }
 ```kotlin
-    fun function(){
-        return returnValue
-    }
-```
-<br/>
-
-##### return값은 변수에 담아 활용할 수 있다. 
-{: .no_toc }
-```kotlin
-    fun doubler(num: Int): Int{
-        return num * 2
-    }
-    var number = doubler(100)
-    Log.d("number", "${number}")
-```
-```
-    number: 200
+    val intent = Intent(this, SubActivity::class.java)
+    binding.btnStart.setOnClickListener{startActivity(intent)}
 ```
 
-<br/>
-
-##### 파라미터값은 Val형이기 때문에 함수 내부에서 변경 불가능하다(Immutable).
-{: .no_toc }
-```kotlin
-    fun doubler(num: Int): Int{
-        num = -1
-        return num * 2
-    }
-```
-```
-    Val cannot be reassigned
-```
-
-<br/>
-
-##### 여러 개의 파라미터를 받아올 수 있으며, 받아오지 않을 경우를 대비한 기본값을 설정할 수 있다.
-{: .no_toc }
-```kotlin
-    fun info(name: String, age: Int = 25){
-        Log.d("info", "name: ${name}, age: ${age}")
-    }
-    info("mike")
-```
-
-```
-    info: name: mike, age: 25
-```
