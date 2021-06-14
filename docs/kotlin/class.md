@@ -20,12 +20,9 @@ parent: Kotlin
 ```
 <br/>
 
-### 생성자
+## 생성자
 ##### 클래스라는 그룹으로 묶여 있는 코드를 실행하기 위해 함수 형태로 제공되는 생성자를 호출한다.
 {: .no_toc }
-
-<br/>
-
 ##### 프라이머리(Primary) 생성자:  class 키워드와 같은 위치에 constructor 키워드로 작성되며, 파라미터를 받을 수 있다.
 {: .no_toc }
 ```kotlin
@@ -68,7 +65,7 @@ parent: Kotlin
 
 <br/>
 
-### Class의 사용
+## Class의 사용
 ##### 클래스의 생성자 호출 후 생성되는 Instance는 객체(Object)라고도 부르며, 변수에 담을 수 있다.
 {: .no_toc }
 ```kotlin
@@ -148,7 +145,7 @@ parent: Kotlin
                 companion object {
                 }
             }
-        }b 
+        }
     }
 ```
 ```
@@ -166,7 +163,7 @@ parent: Kotlin
 ```
 <br/>
 
-### 데이터 클래스(data class)
+## 데이터 클래스(data class)
 ##### data class는 일반 class와 다르게 toString으로 주소 대신 값을 불러올 수 있다.
 {: .no_toc }
 ```kotlin
@@ -185,7 +182,7 @@ parent: Kotlin
 ```
 
 <br/>
-### 클래스의 상속과 확장
+## 클래스의 상속과 확장
 ##### 자식 클래스는 부모 클래스의 Property와 Method를 사용할 수 있다.
 {: .no_toc }
 ##### 상속할 부모 클래스는 open Class 형태로 사용해야 자식이 상속할 수 있다.
@@ -235,4 +232,96 @@ parent: Kotlin
 ```
 ```
     param: hi
+```
+<br/>
+
+##### 자식 클래스의 Method는 재정의(Override) 될 수 있다. 단, 재정의 할 부모 Method가 open fun 형태여야 한다.
+{: .no_toc }
+```kotlin
+    open class ParentClass(){
+        open fun print(): String{
+            return "parent"
+        }
+    }
+    class ChildClass(): ParentClass() {
+        override fun print() : String{
+            return "child"
+        }
+    }
+    var child = ChildClass()
+    Log.d("overrideResult", "${child.print()}")
+```
+```
+    overrideResult: child
+```
+##### 마찬가지로 부모 Property가 open 형태라면 자식 클래스에서 재정의할 수 있다.
+{: .no_toc }
+```kotlin
+    open class ParentClass(){
+        open var name = "parent"
+    }
+    class ChildClass(): ParentClass() {
+        override var name = "child"
+    }
+```
+<br/>
+
+##### Extension : 이미 존재하는 클래스에 도트 연산자(.)로 Method를 추가하여 확장할 수 있다.
+{: .no_toc }
+```kotlin
+    class Standard() {
+        fun one() {}
+        fun two() {}
+    }
+    fun Standard.three(): String{
+        return "new fun"
+    }
+    var standard = Standard()
+    Log.d("extension", "${standard.three()}")
+```
+```
+    Log.d("extension", "${standard.three()}")
+```
+<br/>
+## 추상화, 인터페이스
+##### 추상화(abstract)와 인터페이스(interface)는 본 클래스를 구현하기 전에 개념만 설계해 놓은 클래스이다.
+{: .no_toc }
+##### interface는 Method/Property가 미구현 상태로 선언된다. interface가 아닌 코드 속에는 포함될 수 없다.
+{: .no_toc }
+```kotlin
+    interface base{
+        abstract fun one()
+        fun two() // 기본적으로 abstract 키워드가 생략되어 있다. 즉 one과 two 함수는 같은 형태이다.
+    }
+    class real: base{
+        override fun one(){}
+        override fun two(){}
+    }
+```
+```kotlin
+    fun function{ 
+        interface base {
+            fun one()
+            fun two()
+        }
+    } 
+    // 'base' is an interface so it cannot be local. Try to use anonymous object or abstract class instead
+```
+<br/>
+
+##### abstract class는 Method/Property가 일부 구현 상태로 선언된다.
+{: .no_toc }
+```kotlin
+    abstract class base{
+        abstract fun one(): String // 구현할 method와 return 타입이 같아야 한다.
+        fun two():String{
+            return "base에서 구현됨"
+        }
+    }
+    class real: base() {
+        override fun one() : String{
+            return "real에서 구현됨"
+        } // 미구현된 method와 return 타입이 같아야 한다.
+        // override fun two(): String {}  이미 구현된 method는 재정의가 불가능하다.
+    }
 ```
