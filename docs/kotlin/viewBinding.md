@@ -12,14 +12,14 @@ parent: Kotlin
 {: .no_toc }
 ##### 1. Gradle Scripts / build gradle(Module)에 접근한다.
 {: .no_toc }
-![gradle](/assets/images/viewBinding/gradle.png)
+![gradle](./assets/images/viewBinding/gradle.png)
 
 ##### 2. android 항목에 다음과 같이 작성한다. 
 {: .no_toc }
-![buildFeatures](/assets/images/viewBinding/buildFeatures.png)
+![buildFeatures](./assets/images/viewBinding/buildFeatures.png)
 ##### 3. 상단의 sync now를 눌러 적용한다.
 {: .no_toc }
-![sync](/assets/images/viewBinding/sync.png)
+![sync](./assets/images/viewBinding/sync.png)
 ##### 4. 적용할 Activity에서 layout xml에 대응하는 클래스의 instance를 생성한다.
 {: .no_toc }
 ##### - activity_main.xml에 대응하는 클래스는 ActivityMainBinding으로 자동 설정된다.
