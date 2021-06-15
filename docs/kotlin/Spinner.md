@@ -14,7 +14,7 @@ parent: Kotlin
 
 ##### 1. design에서 Spinner를 추가한다.
 {: .no_toc }
-![sync](../images/spinner/spinner-locate.png)
+![sync](../images/spinner/spinner-locate.PNG)
 
 ##### 2. ArrayAdapter 클래스의 객체를 만든다. 인자는 (context, item layout, data)이다.
 {: .no_toc }
@@ -35,7 +35,7 @@ parent: Kotlin
 ```
 ##### 화면 출력
 {: .no_toc }
-![sync](../images/spinner/spinner-result1.png)
+![sync](../images/spinner/spinner-result1.PNG)
 ##### 4. spinner의 onItemSelectedListener method로 선택된 item에 대해 반응한다.
 {: .no_toc }
 ```kotlin
@@ -55,7 +55,7 @@ parent: Kotlin
         Log.d("spinnerResult", "${data.get(position)}")
     }
 ```
-![sync](../images/spinner/spinner-result2.png)
+![sync](../images/spinner/spinner-result2.PNG)
 ```
     spinnerResult: - please select -
     spinnerResult: two
